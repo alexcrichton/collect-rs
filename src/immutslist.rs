@@ -14,6 +14,7 @@ impl<T> Node<T> {
 }
 
 /// An iterator over the items of an ImmutSList
+#[deriving(Clone)]
 pub struct Items<'a, T: 'a> {
     head: Option<&'a Node<T>>,
     nelem: uint,
@@ -136,10 +137,6 @@ impl<'a, T> Iterator<&'a T> for Items<'a, T> {
     fn size_hint(&self) -> (uint, Option<uint>) {
         (self.nelem, Some(self.nelem))
     }
-}
-
-impl<'a, T> Clone for Items<'a, T> {
-    fn clone(&self) -> Items<'a, T> { *self }
 }
 
 impl<T> FromIterator<T> for ImmutSList<T> {
